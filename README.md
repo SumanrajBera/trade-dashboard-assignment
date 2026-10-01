@@ -8,21 +8,10 @@ A full pull takes up to **15 minutes**, but the network kills any HTTP connectio
 - A **worker** fetches the data in many short requests (each well under 30s) and saves it to Redis.
 - When the job finishes, the server **pushes** an event to the browser over Socket.IO, and the dashboard updates itself. No page refresh, no polling, no cron.
 
-## How it works
+## Architecture Diagram
+![Architecture](./ss/architecture.png)
 
-```
-Browser ──POST /pulls──▶ API server ──adds job──▶ Redis (BullMQ queue)
-   ▲                         │                           │
-   │                         │                           ▼
-   │                  QueueEvents (job done)      Worker picks up job
-   │                         │                           │
-   └──── Socket.IO push ◀────┘                           ▼
-                                              Many short calls ──▶ Mock BSE API
-                                                      │
-                                                      ▼
-                                              Trades saved in Redis
-```
-
+### Components
 | Part | File | Port | Role |
 |---|---|---|---|
 | Mock BSE API | `mock-bse.js` | 4000 | Serves seeded trade data, slowly, in pages |
