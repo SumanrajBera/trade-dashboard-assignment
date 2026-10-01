@@ -69,18 +69,21 @@ Open **three terminals** in the project folder and start these in order.
 **Terminal 1: Mock BSE API**
 
 ```bash
+cd backend/src
 node mock-bse.js
 ```
 
 **Terminal 2: Worker**
 
 ```bash
+cd backend/src
 node worker.js
 ```
 
 **Terminal 3: API server and dashboard**
 
 ```bash
+cd backend
 node server.js
 ```
 
